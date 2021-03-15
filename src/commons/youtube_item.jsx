@@ -18,6 +18,6 @@ function YoutubeItem({video: {snippet}}) {
             </div>
         </li>
     )
-};
+}
 
 export default YoutubeItem;

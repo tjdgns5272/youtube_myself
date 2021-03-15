@@ -12,6 +12,6 @@ function YoutubeList({videos}) {
             )}
         </ul>
     )
-};
+}
 
 export default YoutubeList;
