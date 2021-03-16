@@ -1,3 +1,19 @@
 .app {
-    max-width: 70rem;
+    width: 70rem;
+}
+.detailBox {
+    display: flex;
+}
+
+.details {
+    flex: 1 1 70%;
+}
+.videos {
+    flex: 1 1 30%;
+}
+
+@media screen and (max-width: 800px) {
+    .detailBox {
+        flex-direction: column;
+    }
 }

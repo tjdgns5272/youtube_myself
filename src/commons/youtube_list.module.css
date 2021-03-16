@@ -1,5 +1,9 @@
 .videos {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    list-style: none;
     padding: 0;
+    width: 100%;
 }

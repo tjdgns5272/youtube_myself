@@ -3,13 +3,17 @@
     display: flex;
     list-style: none;
     align-items: center;
-    width: 49%;
     margin-bottom: 0.2em;
-    margin-right: 0.5em;
     border: 0.1em solid lightgray;
     cursor: pointer;
     transition: transform 250ms ease-in;
     box-shadow: 4px 4px 6px 0px rgba(50, 50, 50, 0.95);
+}
+.container.list {
+    width: 100%;
+}
+.container.index {
+    width: 49%;
 }
 
 .container:hover {
@@ -17,6 +21,7 @@
 }
 
 .info {
+    flex: 1 1 55%;
     margin-left: 0.5em;
 }
 
@@ -24,6 +29,7 @@
     margin: 0.2rem;
 }
 .thumbnails {
+    flex: 1 1 45%;
     width: 40%;
-    height: 50%;
+    height:60%;
 }

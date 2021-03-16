@@ -3,41 +3,43 @@ import './app.module.css';
 import YoutubeList from "./commons/youtube_list";
 import styles from './app.module.css';
 import YoutubeHeader from "./commons/youtube_header";
+import YoutubeDetails from "./commons/youtube_details";
 
-function App() {
+function App({youtube}) {
     const [videos, setVideos] = useState([])
+    const [selectedVideo, setSelectedVideo] = useState(null)
 
+    const onClick = (item) => {
+        setSelectedVideo(item)
+    }
     const search = (query) => {
-        const requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-
-        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=26&q=${query}&regionCode=KR&chart=mostPopular&type=video&order=viewCount&key=AIzaSyAvsKgkC1UZlZMVtg-sU7lMzB3YxplC93M`
-            , requestOptions)
-            .then(response => response.json())
-            .then(result => result.items.map(item => ({...item, id:item.id.videoId})))
-            .then(result => setVideos(result))
-            .catch(error => console.log('error', error));
+        setSelectedVideo('')
+        youtube
+            .search(query)
+            .then(items => setVideos(items))
     }
 
     useEffect(() => {
-        const requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        fetch("https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyAvsKgkC1UZlZMVtg-sU7lMzB3YxplC93M"
-            , requestOptions)
-            .then(response => response.json())
-            .then(result => setVideos(result.items))
-            .catch(error => console.log('error', error));
+        youtube
+            .mostPopular()
+            .then(items => setVideos(items))
     }, [])
 
     return (
         <div className={styles.app}>
-            <YoutubeHeader
-                onSearch={search}/>
-            <YoutubeList videos={videos}/>
+            <YoutubeHeader onSearch={search}/>
+            <div className={styles.detailBox}>
+                {selectedVideo &&
+                <div className={styles.details}>
+                    <YoutubeDetails details={selectedVideo}/>
+                </div>}
+                <div className={styles.videos}>
+                    <YoutubeList videos={videos}
+                                 onClick={onClick}
+                                 display={selectedVideo ? 'list' : 'index'}
+                    />
+                </div>
+            </div>
         </div>
     );
 }
